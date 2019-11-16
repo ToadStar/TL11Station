@@ -33,7 +33,6 @@
 				L.embedded_objects -= I
 			if(!H.has_embedded_objects())
 				H.clear_alert("embeddedobject")
-				SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 			if(objects > 0)
 				display_results(user, target, "<span class='notice'>You successfully remove [objects] objects from [H]'s [L.name].</span>",

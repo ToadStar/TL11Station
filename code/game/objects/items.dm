@@ -516,8 +516,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	else
 		M.take_bodypart_damage(7)
 
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
-
 	log_combat(user, M, "attacked", "[src.name]", "(INTENT: [uppertext(user.a_intent)])")
 
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
@@ -766,7 +764,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		var/mob/living/carbon/human/H = user
 		skill_modifier = H.mind.get_skill_speed_modifier(/datum/skill/mining)
 
-	delay *= toolspeed * skill_modifier	
+	delay *= toolspeed * skill_modifier
 
 	// Play tool sound at the beginning of tool usage.
 	play_tool_sound(target, volume)

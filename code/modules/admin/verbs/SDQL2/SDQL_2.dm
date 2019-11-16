@@ -228,7 +228,7 @@
 		return
 	var/list/datum/SDQL2_query/running = list()
 	var/list/datum/SDQL2_query/waiting_queue = list() //Sequential queries queue.
-	
+
 	for(var/list/query_tree in querys)
 		var/datum/SDQL2_query/query = new /datum/SDQL2_query(query_tree)
 		if(QDELETED(query))
@@ -255,7 +255,7 @@
 				to_chat(usr, "<span class='admin'>[msg]</span>")
 			log_admin(msg)
 			query.ARun()
-	
+
 	var/finished = FALSE
 	var/objs_all = 0
 	var/objs_eligible = 0
@@ -1076,8 +1076,6 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 				v = SSnpcpool
 			if("SSmobs")
 				v = SSmobs
-			if("SSmood")
-				v = SSmood
 			if("SSquirks")
 				v = SSquirks
 			if("SSwet_floors")

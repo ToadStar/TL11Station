@@ -593,7 +593,7 @@
 	return
 
 /mob/living/Move(atom/newloc, direct)
-	if(lying) 
+	if(lying)
 		if(direct & EAST)
 			lying = 90
 		if(direct & WEST)
@@ -1057,7 +1057,6 @@
 		for(var/obj/effect/dummy/lighting_obj/moblight/fire/F in src)
 			qdel(F)
 		clear_alert("fire")
-		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "on_fire")
 		SEND_SIGNAL(src, COMSIG_LIVING_EXTINGUISHED, src)
 		update_fire()
 

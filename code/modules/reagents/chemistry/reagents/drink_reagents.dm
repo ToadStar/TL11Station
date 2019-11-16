@@ -157,7 +157,6 @@
 
 /datum/reagent/consumable/laughter/on_mob_life(mob/living/carbon/M)
 	M.emote("laugh")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_laughter)
 	..()
 
 /datum/reagent/consumable/superlaughter
@@ -171,7 +170,6 @@
 	if(prob(30))
 		M.visible_message("<span class='danger'>[M] bursts out into a fit of uncontrollable laughter!</span>", "<span class='userdanger'>You burst out in a fit of uncontrollable laughter!</span>")
 		M.Stun(5)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "chemical_laughter", /datum/mood_event/chemical_superlaughter)
 	..()
 
 /datum/reagent/consumable/potato_juice
@@ -288,7 +286,6 @@
 	name = "Lemonade"
 	description = "Sweet, tangy lemonade. Good for the soul."
 	color = "#FFE978"
-	quality = DRINK_NICE
 	taste_description = "sunshine and summertime"
 	glass_icon_state = "lemonpitcher"
 	glass_name = "pitcher of lemonade"
@@ -298,7 +295,6 @@
 	name = "Arnold Palmer"
 	description = "Encourages the patient to go golfing."
 	color = "#FFB766"
-	quality = DRINK_NICE
 	nutriment_factor = 2
 	taste_description = "bitter tea"
 	glass_icon_state = "arnold_palmer"
@@ -368,7 +364,6 @@
 	name = "Nuka Cola"
 	description = "Cola, cola never changes."
 	color = "#100800" // rgb: 16, 8, 0
-	quality = DRINK_VERYGOOD
 	taste_description = "the future"
 	glass_icon_state = "nuka_colaglass"
 	glass_name = "glass of Nuka Cola"
@@ -396,7 +391,6 @@
 	name = "Grey Bull"
 	description = "Grey Bull, it gives you gloves!"
 	color = "#EEFF00" // rgb: 238, 255, 0
-	quality = DRINK_VERYGOOD
 	taste_description = "carbonated oil"
 	glass_icon_state = "grey_bull_glass"
 	glass_name = "glass of Grey Bull"
@@ -578,7 +572,6 @@
 	name = "Soy Latte"
 	description = "A nice and tasty beverage while you are reading your hippie books."
 	color = "#664300" // rgb: 102, 67, 0
-	quality = DRINK_NICE
 	taste_description = "creamy coffee"
 	glass_icon_state = "soy_latte"
 	glass_name = "soy latte"
@@ -599,7 +592,6 @@
 	name = "Cafe Latte"
 	description = "A nice, strong and tasty beverage while you are reading."
 	color = "#664300" // rgb: 102, 67, 0
-	quality = DRINK_NICE
 	taste_description = "bitter cream"
 	glass_icon_state = "cafe_latte"
 	glass_name = "cafe latte"
@@ -620,7 +612,6 @@
 	name = "The Doctor's Delight"
 	description = "A gulp a day keeps the Medibot away! A mixture of juices that heals most damage types fairly quickly at the cost of hunger."
 	color = "#FF8CFF" // rgb: 255, 140, 255
-	quality = DRINK_VERYGOOD
 	taste_description = "homely fruit"
 	glass_icon_state = "doctorsdelightglass"
 	glass_name = "Doctor's Delight"
@@ -641,7 +632,6 @@
 	name = "Chocolate Pudding"
 	description = "A great dessert for chocolate lovers."
 	color = "#800000"
-	quality = DRINK_VERYGOOD
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "sweet chocolate"
 	glass_icon_state = "chocolatepudding"
@@ -652,7 +642,6 @@
 	name = "Vanilla Pudding"
 	description = "A great dessert for vanilla lovers."
 	color = "#FAFAD2"
-	quality = DRINK_VERYGOOD
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "sweet vanilla"
 	glass_icon_state = "vanillapudding"
@@ -663,7 +652,6 @@
 	name = "Cherry Shake"
 	description = "A cherry flavored milkshake."
 	color = "#FFB6C1"
-	quality = DRINK_VERYGOOD
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "creamy cherry"
 	glass_icon_state = "cherryshake"
@@ -674,7 +662,6 @@
 	name = "Blue Cherry Shake"
 	description = "An exotic milkshake."
 	color = "#00F1FF"
-	quality = DRINK_VERYGOOD
 	nutriment_factor = 4 * REAGENTS_METABOLISM
 	taste_description = "creamy blue cherry"
 	glass_icon_state = "bluecherryshake"
@@ -685,7 +672,6 @@
 	name = "Pumpkin Latte"
 	description = "A mix of pumpkin juice and coffee."
 	color = "#F4A460"
-	quality = DRINK_VERYGOOD
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	taste_description = "creamy pumpkin"
 	glass_icon_state = "pumpkin_latte"
@@ -696,7 +682,6 @@
 	name = "Gibb Floats"
 	description = "Ice cream on top of a Dr. Gibb glass."
 	color = "#B22222"
-	quality = DRINK_NICE
 	nutriment_factor = 3 * REAGENTS_METABOLISM
 	taste_description = "creamy cherry"
 	glass_icon_state = "gibbfloats"
@@ -719,7 +704,6 @@
 	name = "Triple Citrus"
 	description = "A solution."
 	color = "#C8A5DC"
-	quality = DRINK_NICE
 	taste_description = "extreme bitterness"
 	glass_icon_state = "triplecitrus" //needs own sprite mine are trash
 	glass_name = "glass of triple citrus"
@@ -741,7 +725,6 @@
 	name = "Chocolate Milk"
 	description = "Milk for cool kids."
 	color = "#7D4E29"
-	quality = DRINK_NICE
 	taste_description = "chocolate milk"
 
 /datum/reagent/consumable/menthol
@@ -783,7 +766,6 @@
 	name = "Cream Soda"
 	description = "A classic space-American vanilla flavored soft drink."
 	color = "#dcb137"
-	quality = DRINK_VERYGOOD
 	taste_description = "fizzy vanilla"
 	glass_icon_state = "cream_soda"
 	glass_name = "Cream Soda"
@@ -797,7 +779,6 @@
 	name = "Red Queen"
 	description = "DRINK ME."
 	color = "#e6ddc3"
-	quality = DRINK_GOOD
 	taste_description = "wonder"
 	glass_icon_state = "red_queen"
 	glass_name = "Red Queen"

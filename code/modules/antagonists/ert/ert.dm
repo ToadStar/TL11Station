@@ -12,7 +12,6 @@
 	var/list/name_source
 	var/random_names = TRUE
 	show_in_antagpanel = FALSE
-	antag_moodlet = /datum/mood_event/focused
 	can_hijack = HIJACK_PREVENT
 
 /datum/antagonist/ert/on_gain()

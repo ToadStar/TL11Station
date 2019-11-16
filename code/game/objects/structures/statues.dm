@@ -10,11 +10,9 @@
 	var/material_drop_type = /obj/item/stack/sheet/metal
 	var/impressiveness = 15
 	CanAtmosPass = ATMOS_PASS_DENSITY
-	var/art_type = /datum/component/art
 
 /obj/structure/statue/Initialize()
 	. = ..()
-	AddComponent(art_type, impressiveness)
 	addtimer(CALLBACK(src, /datum.proc/AddComponent, /datum/component/beauty, impressiveness *  75), 0)
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
@@ -54,8 +52,6 @@
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0
 	var/active = null
-	impressiveness = 25 // radiation makes an impression
-
 
 /obj/structure/statue/uranium/nuke
 	name = "statue of a nuclear fission explosive"
@@ -98,7 +94,6 @@
 /obj/structure/statue/plasma
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
-	impressiveness = 20
 	desc = "This statue is suitably made from plasma."
 
 /obj/structure/statue/plasma/scientist
@@ -149,7 +144,6 @@
 /obj/structure/statue/gold
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/gold
-	impressiveness = 25
 	desc = "This is a highly valuable statue made from gold."
 
 /obj/structure/statue/gold/hos
@@ -177,7 +171,6 @@
 /obj/structure/statue/silver
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/silver
-	impressiveness = 25
 	desc = "This is a valuable statue made from silver."
 
 /obj/structure/statue/silver/md
@@ -205,7 +198,6 @@
 /obj/structure/statue/diamond
 	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
-	impressiveness = 50
 	desc = "This is a very expensive diamond statue."
 
 /obj/structure/statue/diamond/captain
@@ -225,7 +217,6 @@
 /obj/structure/statue/bananium
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
-	impressiveness = 50
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
 	var/spam_flag = 0
 
@@ -260,7 +251,6 @@
 /obj/structure/statue/sandstone
 	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
-	impressiveness = 15
 
 /obj/structure/statue/sandstone/assistant
 	name = "statue of an assistant"
@@ -299,4 +289,3 @@
 	name = "\improper Karl Marx bust"
 	desc = "A bust depicting a certain 19th century economist. You get the feeling a specter is haunting the station."
 	icon_state = "marx"
-	art_type = /datum/component/art/rev

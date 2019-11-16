@@ -470,18 +470,15 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_speed = 5
 	throw_range = 2
 	attack_verb = list("busted")
-	var/impressiveness = 45
 
 /obj/item/statuebust/Initialize()
 	. = ..()
-	AddComponent(/datum/component/art, impressiveness)
 	addtimer(CALLBACK(src, /datum.proc/AddComponent, /datum/component/beauty, 1000), 0)
 
 /obj/item/statuebust/hippocratic
 	name = "hippocrates bust"
 	desc = "A bust of the famous Greek physician Hippocrates of Kos, often referred to as the father of western medicine."
 	icon_state = "hippocratic"
-	impressiveness = 50
 
 /obj/item/tailclub
 	name = "tail club"

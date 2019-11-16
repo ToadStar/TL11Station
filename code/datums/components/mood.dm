@@ -38,7 +38,7 @@
 	unmodify_hud()
 	return ..()
 
-/datum/component/mood/proc/register_job_signals(datum/source, job)
+/datum/component/mood/proc/register_job_signals(datum/source, job) //TOADWORK STOP
 	if(job in list("Research Director", "Scientist", "Roboticist"))
 		RegisterSignal(parent, COMSIG_ADD_MOOD_EVENT_RND, .proc/add_event) //Mood events that are only for RnD members
 

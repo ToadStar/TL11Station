@@ -548,8 +548,6 @@
 	..()
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/carbon/M)
-	if(current_cycle >= 5)
-		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "numb", /datum/mood_event/narcotic_medium, name)
 	switch(current_cycle)
 		if(11)
 			to_chat(M, "<span class='warning'>You start to feel tired...</span>" )
@@ -1155,9 +1153,6 @@
 	M.dizziness = max(0, M.dizziness-6)
 	M.confused = max(0, M.confused-6)
 	M.disgust = max(0, M.disgust-6)
-	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
-	if(mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
-		mood.setSanity(min(mood.sanity+5, SANITY_NEUTRAL)) // set minimum to prevent unwanted spiking over neutral
 	..()
 	. = 1
 

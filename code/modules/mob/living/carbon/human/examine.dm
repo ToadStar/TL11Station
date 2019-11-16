@@ -263,10 +263,6 @@
 					msg += "[t_He] seem[p_s()] winded.\n"
 				if (getToxLoss() >= 10)
 					msg += "[t_He] seem[p_s()] sickly.\n"
-				var/datum/component/mood/mood = src.GetComponent(/datum/component/mood)
-				if(mood.sanity <= SANITY_DISTURBED)
-					msg += "[t_He] seem[p_s()] distressed.\n"
-					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "empath", /datum/mood_event/sad_empath, src)
 				if (HAS_TRAIT(src, TRAIT_BLIND))
 					msg += "[t_He] appear[p_s()] to be staring off into space.\n"
 				if (HAS_TRAIT(src, TRAIT_DEAF))
@@ -276,7 +272,6 @@
 
 			if(HAS_TRAIT(user, TRAIT_SPIRITUAL) && mind?.isholy)
 				msg += "[t_He] [t_has] a holy aura about [t_him].\n"
-				SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "religious_comfort", /datum/mood_event/religiously_comforted)
 
 		if(stat == UNCONSCIOUS)
 			msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"

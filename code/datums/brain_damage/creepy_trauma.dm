@@ -47,7 +47,6 @@
 	else
 		viewing = FALSE
 	if(viewing)
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/creeping, obsession.name)
 		total_time_creeping += 20
 		time_spent_away = 0
 		if(attachedobsessedobj)//if an objective needs to tick down, we can do that since traumas coexist with the antagonist datum
@@ -57,21 +56,10 @@
 
 /datum/brain_trauma/special/obsessed/proc/out_of_view()
 	time_spent_away += 20
-	if(time_spent_away > 1800) //3 minutes
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/notcreepingsevere, obsession.name)
-	else
-		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "creeping", /datum/mood_event/notcreeping, obsession.name)
 
 /datum/brain_trauma/special/obsessed/on_lose()
 	..()
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
-
-/datum/brain_trauma/special/obsessed/handle_speech(datum/source, list/speech_args)
-	if(!viewing)
-		return
-	var/datum/component/mood/mood = owner.GetComponent(/datum/component/mood)
-	if(mood && mood.sanity >= SANITY_GREAT && social_interaction())
-		speech_args[SPEECH_MESSAGE] = ""
 
 /datum/brain_trauma/special/obsessed/on_hug(mob/living/hugger, mob/living/hugged)
 	if(hugged == obsession)

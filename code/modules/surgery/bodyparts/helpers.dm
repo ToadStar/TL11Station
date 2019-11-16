@@ -148,7 +148,6 @@
 			I.forceMove(T)
 
 	clear_alert("embeddedobject")
-	SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "embedded")
 
 /mob/living/carbon/proc/has_embedded_objects()
 	. = 0

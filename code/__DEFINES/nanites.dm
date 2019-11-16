@@ -34,7 +34,6 @@
 #define NES_INCLUSIVE_MODE "Inclusive Mode"
 #define NES_RACE "Race"
 #define NES_HALLUCINATION_TYPE "Hallucination Type"
-#define NES_MOOD_MESSAGE "Mood Message"
 #define NES_PROGRAM_OVERWRITE "Program Overwrite"
 #define NES_CLOUD_OVERWRITE "Cloud Overwrite"
 #define NES_SCAN_TYPE "Scan Type"

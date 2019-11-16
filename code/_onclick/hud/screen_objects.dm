@@ -59,7 +59,7 @@
 		var/mob/M = usr
 		M.swap_hand()
 	return 1
-	
+
 /obj/screen/skills
 	name = "skills"
 	icon = 'icons/mob/screen_midnight.dmi'
@@ -408,7 +408,7 @@
 	var/mob/living/user = hud?.mymob
 	if(!istype(user))
 		return
-	
+
 	if(!user.resting)
 		icon_state = "act_rest"
 	else
@@ -551,7 +551,7 @@
 	if(choice != hud.mymob.zone_selected)
 		hud.mymob.zone_selected = choice
 		update_icon()
-	
+
 	return TRUE
 
 /obj/screen/zone_sel/update_overlays()
@@ -648,16 +648,6 @@
 	if (ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		H.check_self_for_injuries()
-
-/obj/screen/mood
-	name = "mood"
-	icon_state = "mood5"
-	screen_loc = ui_mood
-
-/obj/screen/sanity
-	name = "sanity"
-	icon_state = "sanity3"
-	screen_loc = ui_mood
 
 /obj/screen/splash
 	icon = 'icons/blank_title.png'

@@ -4,10 +4,6 @@
 	taste_description = "bitterness"
 	var/trippy = TRUE //Does this drug make you trip?
 
-/datum/reagent/drug/on_mob_end_metabolize(mob/living/M)
-	if(trippy)
-		SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "[type]_high")
-
 /datum/reagent/drug/space_drugs
 	name = "Space drugs"
 	description = "An illegal chemical compound used as drug."
@@ -26,7 +22,7 @@
 
 /datum/reagent/drug/space_drugs/overdose_start(mob/living/M)
 	to_chat(M, "<span class='userdanger'>You start tripping hard!</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
+	..()
 
 /datum/reagent/drug/space_drugs/overdose_process(mob/living/M)
 	if(M.hallucination < volume && prob(20))
@@ -48,7 +44,6 @@
 	if(prob(1))
 		var/smoke_message = pick("You feel relaxed.", "You feel calmed.","You feel alert.","You feel rugged.")
 		to_chat(M, "<span class='notice'>[smoke_message]</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "smoked", /datum/mood_event/smoked, name)
 	M.AdjustStun(-5, FALSE)
 	M.AdjustKnockdown(-5, FALSE)
 	M.AdjustUnconscious(-5, FALSE)
@@ -75,7 +70,6 @@
 	if(prob(5))
 		var/high_message = pick("You feel jittery.", "You feel like you gotta go fast.", "You feel like you need to step it up.")
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "tweaking", /datum/mood_event/stimulant_medium, name)
 	M.AdjustStun(-20, FALSE)
 	M.AdjustKnockdown(-20, FALSE)
 	M.AdjustUnconscious(-20, FALSE)
@@ -125,7 +119,6 @@
 	var/high_message = pick("You feel calm.", "You feel collected.", "You feel like you need to relax.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "smacked out", /datum/mood_event/narcotic_heavy, name)
 	..()
 
 /datum/reagent/drug/krokodil/overdose_process(mob/living/M)
@@ -184,7 +177,6 @@
 	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "tweaking", /datum/mood_event/stimulant_medium, name)
 	M.AdjustStun(-40, FALSE)
 	M.AdjustKnockdown(-40, FALSE)
 	M.AdjustUnconscious(-40, FALSE)
@@ -277,7 +269,6 @@
 	var/high_message = pick("You feel amped up.", "You feel ready.", "You feel like you can push it to the limit.")
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "salted", /datum/mood_event/stimulant_heavy, name)
 	M.adjustStaminaLoss(-5, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4)
 	M.hallucination += 5
@@ -376,11 +367,9 @@
 /datum/reagent/drug/happiness/on_mob_metabolize(mob/living/L)
 	..()
 	ADD_TRAIT(L, TRAIT_FEARLESS, type)
-	SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug)
 
 /datum/reagent/drug/happiness/on_mob_delete(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_FEARLESS, type)
-	SEND_SIGNAL(L, COMSIG_CLEAR_MOOD_EVENT, "happiness_drug")
 	..()
 
 /datum/reagent/drug/happiness/on_mob_life(mob/living/carbon/M)
@@ -397,44 +386,34 @@
 		switch(reaction)
 			if(1)
 				M.emote("laugh")
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_good_od)
 			if(2)
 				M.emote("sway")
 				M.Dizzy(25)
 			if(3)
 				M.emote("frown")
-				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "happiness_drug", /datum/mood_event/happiness_drug_bad_od)
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.5)
 	..()
 	. = 1
 
 /datum/reagent/drug/happiness/addiction_act_stage1(mob/living/M)// all work and no play makes jack a dull boy
-	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
-	mood.setSanity(min(mood.sanity, SANITY_DISTURBED))
 	M.Jitter(5)
 	if(prob(20))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
 
 /datum/reagent/drug/happiness/addiction_act_stage2(mob/living/M)
-	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
-	mood.setSanity(min(mood.sanity, SANITY_UNSTABLE))
 	M.Jitter(10)
 	if(prob(30))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
 
 /datum/reagent/drug/happiness/addiction_act_stage3(mob/living/M)
-	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
-	mood.setSanity(min(mood.sanity, SANITY_CRAZY))
 	M.Jitter(15)
 	if(prob(40))
 		M.emote(pick("twitch","laugh","frown"))
 	..()
 
 /datum/reagent/drug/happiness/addiction_act_stage4(mob/living/carbon/human/M)
-	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
-	mood.setSanity(SANITY_INSANE)
 	M.Jitter(20)
 	if(prob(50))
 		M.emote(pick("twitch","laugh","frown"))

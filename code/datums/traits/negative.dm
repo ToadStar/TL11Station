@@ -1,21 +1,4 @@
 //predominantly negative traits
-
-/datum/quirk/badback
-	name = "Bad Back"
-	desc = "Thanks to your poor posture, backpacks and other bags never sit right on your back. More evently weighted objects are fine, though."
-	value = -2
-	mood_quirk = TRUE
-	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
-	lose_text = "<span class='notice'>Your back feels better.</span>"
-	medical_record_text = "Patient scans indicate severe and chronic back pain."
-
-/datum/quirk/badback/on_process()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(H.back && istype(H.back, /obj/item/storage/backpack))
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "back_pain", /datum/mood_event/back_pain)
-	else
-		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "back_pain")
-
 /datum/quirk/blooddeficiency
 	name = "Blood Deficiency"
 	desc = "Your body can't produce enough blood to sustain itself."
@@ -70,141 +53,6 @@
 	lose_text = "<span class='notice'>You're able to hear again!</span>"
 	medical_record_text = "Patient's cochlear nerve is incurably damaged."
 
-/datum/quirk/depression
-	name = "Depression"
-	desc = "You sometimes just hate life."
-	mob_trait = TRAIT_DEPRESSION
-	value = -1
-	gain_text = "<span class='danger'>You start feeling depressed.</span>"
-	lose_text = "<span class='notice'>You no longer feel depressed.</span>" //if only it were that easy!
-	medical_record_text = "Patient has a severe mood disorder, causing them to experience acute episodes of depression."
-	mood_quirk = TRUE
-
-/datum/quirk/depression/on_process()
-	if(prob(0.05))
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "depression", /datum/mood_event/depression)
-
-/datum/quirk/family_heirloom
-	name = "Family Heirloom"
-	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
-	value = -1
-	mood_quirk = TRUE
-	var/obj/item/heirloom
-	var/where
-	medical_record_text = "Patient demonstrates an unnatural attachment to a family heirloom."
-
-/datum/quirk/family_heirloom/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
-	var/obj/item/heirloom_type
-
-	if(is_species(H, /datum/species/moth) && prob(50))
-		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
-	else
-		switch(quirk_holder.mind.assigned_role)
-			//Service jobs
-			if("Clown")
-				heirloom_type = /obj/item/bikehorn/golden
-			if("Mime")
-				heirloom_type = /obj/item/reagent_containers/food/snacks/baguette
-			if("Janitor")
-				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
-			if("Cook")
-				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/chefhat)
-			if("Botanist")
-				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
-			if("Bartender")
-				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/that, /obj/item/reagent_containers/food/drinks/shaker)
-			if("Curator")
-				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
-			if("Chaplain")
-				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
-			if("Assistant")
-				heirloom_type = /obj/item/storage/toolbox/mechanical/old/heirloom
-			//Security/Command
-			if("Captain")
-				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
-			if("Head of Security")
-				heirloom_type = /obj/item/book/manual/wiki/security_space_law
-			if("Warden")
-				heirloom_type = /obj/item/book/manual/wiki/security_space_law
-			if("Security Officer")
-				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
-			if("Detective")
-				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
-			if("Lawyer")
-				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
-			//RnD
-			if("Research Director")
-				heirloom_type = /obj/item/toy/plush/slimeplushie
-			if("Scientist")
-				heirloom_type = /obj/item/toy/plush/slimeplushie
-			if("Roboticist")
-				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
-			//Medical
-			if("Chief Medical Officer")
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
-			if("Medical Doctor")
-				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
-			if("Chemist")
-				heirloom_type = /obj/item/book/manual/wiki/chemistry
-			if("Virologist")
-				heirloom_type = /obj/item/reagent_containers/syringe
-			if("Geneticist")
-				heirloom_type = /obj/item/clothing/under/shorts/purple
-			//Engineering
-			if("Chief Engineer")
-				heirloom_type = pick(/obj/item/clothing/head/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if("Station Engineer")
-				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if("Atmospheric Technician")
-				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
-			//Supply
-			if("Quartermaster")
-				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
-			if("Cargo Technician")
-				heirloom_type = /obj/item/clipboard
-			if("Shaft Miner")
-				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
-
-	if(!heirloom_type)
-		heirloom_type = pick(
-		/obj/item/toy/cards/deck,
-		/obj/item/lighter,
-		/obj/item/dice/d20)
-	heirloom = new heirloom_type(get_turf(quirk_holder))
-	var/list/slots = list(
-		"in your left pocket" = SLOT_L_STORE,
-		"in your right pocket" = SLOT_R_STORE,
-		"in your backpack" = SLOT_IN_BACKPACK
-	)
-	where = H.equip_in_one_of_slots(heirloom, slots, FALSE) || "at your feet"
-
-/datum/quirk/family_heirloom/post_add()
-	if(where == "in your backpack")
-		var/mob/living/carbon/human/H = quirk_holder
-		SEND_SIGNAL(H.back, COMSIG_TRY_STORAGE_SHOW, H)
-
-	to_chat(quirk_holder, "<span class='boldnotice'>There is a precious family [heirloom.name] [where], passed down from generation to generation. Keep it safe!</span>")
-
-	var/list/names = splittext(quirk_holder.real_name, " ")
-	var/family_name = names[names.len]
-
-	heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
-
-/datum/quirk/family_heirloom/on_process()
-	if(heirloom in quirk_holder.GetAllContents())
-		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "family_heirloom_missing")
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "family_heirloom", /datum/mood_event/family_heirloom)
-	else
-		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "family_heirloom")
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "family_heirloom_missing", /datum/mood_event/family_heirloom_missing)
-
-/datum/quirk/family_heirloom/clone_data()
-	return heirloom
-
-/datum/quirk/family_heirloom/on_clone(data)
-	heirloom = data
-
 /datum/quirk/frail
 	name = "Frail"
 	desc = "Your bones might as well be made of glass! Your limbs can take less damage before they become disabled."
@@ -222,25 +70,6 @@
 	gain_text = "<span class='danger'>You feel sleepy.</span>"
 	lose_text = "<span class='notice'>You feel awake again.</span>"
 	medical_record_text = "Patient has abnormal sleep study results and is difficult to wake up."
-
-/datum/quirk/hypersensitive
-	name = "Hypersensitive"
-	desc = "For better or worse, everything seems to affect your mood more than it should."
-	value = -1
-	gain_text = "<span class='danger'>You seem to make a big deal out of everything.</span>"
-	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
-	medical_record_text = "Patient demonstrates a high level of emotional volatility."
-
-/datum/quirk/hypersensitive/add()
-	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier += 0.5
-
-/datum/quirk/hypersensitive/remove()
-	if(quirk_holder)
-		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-		if(mood)
-			mood.mood_modifier -= 0.5
 
 /datum/quirk/light_drinker
 	name = "Light Drinker"
@@ -285,9 +114,6 @@
 		if(quirk_holder.m_intent == MOVE_INTENT_RUN)
 			to_chat(quirk_holder, "<span class='warning'>Easy, easy, take it slow... you're in the dark...</span>")
 			quirk_holder.toggle_move_intent()
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "nyctophobia", /datum/mood_event/nyctophobia)
-	else
-		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "nyctophobia")
 
 /datum/quirk/nonviolent
 	name = "Pacifist"
@@ -413,32 +239,6 @@
 	to_chat(quirk_holder, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
 	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
 
-/datum/quirk/social_anxiety
-	name = "Social Anxiety"
-	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
-	value = -1
-	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
-	lose_text = "<span class='notice'>You feel easier about talking again.</span>" //if only it were that easy!
-	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
-	var/dumb_thing = TRUE
-
-/datum/quirk/social_anxiety/on_process()
-	var/nearby_people = 0
-	for(var/mob/living/carbon/human/H in oview(3, quirk_holder))
-		if(H.client)
-			nearby_people++
-	var/mob/living/carbon/human/H = quirk_holder
-	if(prob(2 + nearby_people))
-		H.stuttering = max(3, H.stuttering)
-	else if(prob(min(3, nearby_people)) && !H.silent)
-		to_chat(H, "<span class='danger'>You retreat into yourself. You <i>really</i> don't feel up to talking.</span>")
-		H.silent = max(10, H.silent)
-	else if(prob(0.5) && dumb_thing)
-		to_chat(H, "<span class='userdanger'>You think of a dumb thing you said a long time ago and scream internally.</span>")
-		dumb_thing = FALSE //only once per life
-		if(prob(1))
-			new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
-
 /datum/quirk/junkie
 	name = "Junkie"
 	desc = "You can't get enough of hard drugs."
@@ -527,24 +327,3 @@
 
 /datum/quirk/junkie/smoker/announce_drugs()
 	to_chat(quirk_holder, "<span class='boldnotice'>There is a [initial(drug_container_type.name)] [where_drug], and a lighter [where_accessory]. Make sure you get your favorite brand when you run out.</span>")
-
-
-/datum/quirk/junkie/smoker/on_process()
-	. = ..()
-	var/mob/living/carbon/human/H = quirk_holder
-	var/obj/item/I = H.get_item_by_slot(SLOT_WEAR_MASK)
-	if (istype(I, /obj/item/clothing/mask/cigarette))
-		var/obj/item/storage/fancy/cigarettes/C = drug_container_type
-		if(istype(I, initial(C.spawn_type)))
-			SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "wrong_cigs")
-			return
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "wrong_cigs", /datum/mood_event/wrong_brand)
-
-/datum/quirk/unstable
-	name = "Unstable"
-	desc = "Due to past troubles, you are unable to recover your sanity if you lose it. Be very careful managing your mood!"
-	value = -2
-	mob_trait = TRAIT_UNSTABLE
-	gain_text = "<span class='danger'>There's a lot on your mind right now.</span>"
-	lose_text = "<span class='notice'>Your mind finally feels calm.</span>"
-	medical_record_text = "Patient's mind is in a vulnerable state, and cannot recover from traumatic events."

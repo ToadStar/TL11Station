@@ -18,7 +18,6 @@ SUBSYSTEM_DEF(economy)
 	var/alive_humans_bounty = 100
 	var/crew_safety_bounty = 1500
 	var/monster_bounty = 150
-	var/mood_bounty = 100
 	var/techweb_bounty = 250
 	var/slime_bounty = list("grey" = 10,
 							// tier 1
@@ -57,7 +56,7 @@ SUBSYSTEM_DEF(economy)
 /datum/controller/subsystem/economy/fire(resumed = 0)
 	eng_payout()  // Payout based on nothing. What will replace it? Surplus power, powered APC's, air alarms? Who knows.
 	sci_payout() // Payout based on slimes.
-	secmedsrv_payout() // Payout based on crew safety, health, and mood.
+	secmedsrv_payout() // Payout based on crew safety, health
 	civ_payout() // Payout based on ??? Profit
 	car_payout() // Cargo's natural gain in the cash moneys.
 	for(var/A in bank_accounts)
@@ -99,14 +98,7 @@ SUBSYSTEM_DEF(economy)
 				crew++
 				if(H.stat != DEAD)
 					alive_crew++
-					var/datum/component/mood/mood = H.GetComponent(/datum/component/mood)
 					var/medical_cash = (H.health / H.maxHealth) * alive_humans_bounty
-					if(mood)
-						var/datum/bank_account/D = get_dep_account(ACCOUNT_SRV)
-						if(D)
-							var/mood_dosh = (mood.mood_level / 9) * mood_bounty
-							D.adjust_money(mood_dosh)
-						medical_cash *= (mood.sanity / 100)
 
 					var/datum/bank_account/D = get_dep_account(ACCOUNT_MED)
 					if(D)

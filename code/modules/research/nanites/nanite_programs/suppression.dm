@@ -359,7 +359,7 @@
 	target.hal_type = hal_type
 	target.hal_details = hal_details
 	target.comm_code = comm_code
-
+/*
 /datum/nanite_program/good_mood
 	name = "Happiness Enhancer"
 	desc = "The nanites synthesize serotonin inside the host's brain, creating an artificial sense of happiness."
@@ -419,3 +419,4 @@
 /datum/nanite_program/bad_mood/disable_passive_effect()
 	. = ..()
 	SEND_SIGNAL(host_mob, COMSIG_CLEAR_MOOD_EVENT, "nanite_sadness")
+*/

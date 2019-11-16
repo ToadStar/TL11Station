@@ -31,7 +31,7 @@
 	id = "research_nanites"
 	program_type = /datum/nanite_program/research
 	category = list("Utility Nanites")
-	
+
 /datum/design/nanites/researchplus
 	name = "Neural Network"
 	desc = "The nanites link the host's brains together forming a neural research network, that becomes more efficient with the amount of total hosts. Can be overloaded to increase research output."
@@ -467,7 +467,7 @@
 	id = "hallucination_nanites"
 	program_type = /datum/nanite_program/triggered/comm/hallucination
 	category = list("Suppression Nanites")
-
+/*
 /datum/design/nanites/good_mood
 	name = "Happiness Enhancer"
 	desc = "The nanites synthesize serotonin inside the host's brain, creating an artificial sense of happiness."
@@ -481,7 +481,7 @@
 	id = "bad_mood_nanites"
 	program_type = /datum/nanite_program/bad_mood
 	category = list("Suppression Nanites")
-
+*/
 ////////////////////SENSOR NANITES//////////////////////////////////////
 
 /datum/design/nanites/sensor_health

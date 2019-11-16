@@ -26,7 +26,6 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 			creamface.icon_state = "creampie_lizard"
 		else
 			creamface.icon_state = "creampie_human"
-		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "creampie", /datum/mood_event/creampie)
 	else if(ismonkey(parent))
 		creamface.icon_state = "creampie_monkey"
 	else if(iscorgi(parent))
@@ -41,8 +40,6 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 	var/atom/A = parent
 	A.cut_overlay(creamface)
 	qdel(creamface)
-	if(ishuman(A))
-		SEND_SIGNAL(A, COMSIG_CLEAR_MOOD_EVENT, "creampie")
 	return ..()
 
 /datum/component/creamed/RegisterWithParent()
@@ -53,9 +50,9 @@ GLOBAL_LIST_INIT(creamable, typecacheof(list(
 
 /datum/component/creamed/UnregisterFromParent()
 	UnregisterSignal(parent, list(
-		COMSIG_COMPONENT_CLEAN_ACT, 
+		COMSIG_COMPONENT_CLEAN_ACT,
 		COMSIG_COMPONENT_CLEAN_FACE_ACT))
-	
+
 ///Callback to remove pieface
 /datum/component/creamed/proc/clean_up(datum/source, strength)
 	if(strength >= CLEAN_WEAK)

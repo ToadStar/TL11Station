@@ -10,24 +10,6 @@
 	lose_text = "<span class='danger'>You don't feel as resistant to alcohol anymore. Somehow.</span>"
 	medical_record_text = "Patient demonstrates a high tolerance for alcohol."
 
-/datum/quirk/apathetic
-	name = "Apathetic"
-	desc = "You just don't care as much as other people. That's nice to have in a place like this, I guess."
-	value = 1
-	mood_quirk = TRUE
-	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
-
-/datum/quirk/apathetic/add()
-	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-	if(mood)
-		mood.mood_modifier -= 0.2
-
-/datum/quirk/apathetic/remove()
-	if(quirk_holder)
-		var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
-		if(mood)
-			mood.mood_modifier += 0.2
-
 /datum/quirk/drunkhealing
 	name = "Drunken Resilience"
 	desc = "Nothing like a good drink to make you feel on top of the world. Whenever you're drunk, you slowly recover from injuries."
@@ -67,28 +49,6 @@
 	gain_text = "<span class='notice'>You feel lithe on your feet!</span>"
 	lose_text = "<span class='danger'>You feel clumsy again.</span>"
 	medical_record_text = "Patient scored highly on cardio tests."
-
-/datum/quirk/friendly
-	name = "Friendly"
-	desc = "You give the best hugs, especially when you're in the right mood."
-	value = 1
-	mob_trait = TRAIT_FRIENDLY
-	gain_text = "<span class='notice'>You want to hug someone.</span>"
-	lose_text = "<span class='danger'>You no longer feel compelled to hug others.</span>"
-	mood_quirk = TRUE
-	medical_record_text = "Patient demonstrates low-inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
-
-/datum/quirk/jolly
-	name = "Jolly"
-	desc = "You sometimes just feel happy, for no reason at all."
-	value = 1
-	mob_trait = TRAIT_JOLLY
-	mood_quirk = TRUE
-	medical_record_text = "Patient demonstrates constant euthymia irregular for environment. It's a bit much, to be honest."
-
-/datum/quirk/jolly/on_process()
-	if(prob(0.05))
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
 
 /datum/quirk/light_step
 	name = "Light Step"

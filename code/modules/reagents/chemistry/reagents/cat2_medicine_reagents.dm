@@ -340,7 +340,6 @@
 			Carbies.adjustToxLoss((harmies+burnies)*0.66)
 			if(show_message)
 				to_chat(Carbies, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
-			SEND_SIGNAL(Carbies, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
 	..()
 	return TRUE
 
